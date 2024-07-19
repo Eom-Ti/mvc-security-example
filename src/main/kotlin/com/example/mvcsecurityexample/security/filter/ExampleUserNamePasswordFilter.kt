@@ -6,10 +6,13 @@ import com.fasterxml.jackson.module.kotlin.readValue
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
 import org.springframework.http.HttpMethod
+import org.springframework.http.MediaType
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.AuthenticationServiceException
 import org.springframework.security.core.Authentication
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
+import org.springframework.web.HttpMediaTypeException
+import org.springframework.web.HttpMediaTypeNotSupportedException
 
 
 class ExampleUserNamePasswordFilter(
@@ -25,7 +28,9 @@ class ExampleUserNamePasswordFilter(
             throw AuthenticationServiceException("Authentication service not support method : ${request.method}")
         }
 
-        if(isNotSupportMediaType(request))
+        if (isNotSupportMediaType(request)) {
+            throw HttpMediaTypeNotSupportedException("Media type not support method : ${request.method}")
+        }
 
         val loginData = mapper.readValue<LoginData>(request.inputStream)
         return authenticationManager.authenticate(null)
@@ -40,6 +45,6 @@ class ExampleUserNamePasswordFilter(
             return false
         }
 
-        return request.contentType == null || request.contentType == MediaType.APPLICATION_FORM_URLENCODED
+        return request.contentType.equals(MediaType.APPLICATION_JSON_VALUE, ignoreCase = true)
     }
 }
