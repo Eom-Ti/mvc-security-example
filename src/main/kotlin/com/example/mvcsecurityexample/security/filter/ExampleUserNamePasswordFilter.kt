@@ -9,6 +9,7 @@ import org.springframework.http.HttpMethod
 import org.springframework.http.MediaType
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.AuthenticationServiceException
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.Authentication
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
 import org.springframework.web.HttpMediaTypeNotSupportedException
@@ -34,7 +35,7 @@ class ExampleUserNamePasswordFilter(
         val loginData = mapper.readValue<LoginData>(request.inputStream)
         loginData.checkRequiredValue()
 
-        return authenticationManager.authenticate(null)
+        return authenticationManager.authenticate(UsernamePasswordAuthenticationToken(loginData.userId, loginData.password))
     }
 
     private fun isNotSupportHttpMethod(request: HttpServletRequest): Boolean {
