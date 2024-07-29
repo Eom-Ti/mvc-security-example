@@ -1,5 +1,6 @@
 package com.example.mvcsecurityexample.security
 
+import com.example.mvcsecurityexample.security.filter.ExampleSuccessHandler
 import com.example.mvcsecurityexample.security.filter.ExampleUserNamePasswordFilter
 import com.example.mvcsecurityexample.security.filter.ExampleUserNamePasswordProvider
 import org.apache.tomcat.util.net.openssl.ciphers.Authentication
@@ -28,7 +29,7 @@ class SecurityConfig(
             httpBasic { disable() }
             formLogin { disable() }
             sessionManagement { sessionCreationPolicy = SessionCreationPolicy.STATELESS }
-            addFilterAt<UsernamePasswordAuthenticationFilter>(ExampleUserNamePasswordFilter(ProviderManager(exampleUserNamePasswordProvider())))
+            addFilterAt<UsernamePasswordAuthenticationFilter>(exampleUserNamePasswordFilter())
         }
         return http.build()
     }
@@ -37,4 +38,15 @@ class SecurityConfig(
     fun exampleUserNamePasswordProvider(): AuthenticationProvider {
         return ExampleUserNamePasswordProvider()
     }
+
+    @Bean
+    fun exampleUserNamePasswordFilter(): ExampleUserNamePasswordFilter {
+        val exampleUserNamePasswordFilter = ExampleUserNamePasswordFilter()
+        exampleUserNamePasswordFilter.setAuthenticationSuccessHandler(ExampleSuccessHandler())
+        exampleUserNamePasswordFilter.setAuthenticationManager(ProviderManager(exampleUserNamePasswordProvider()))
+
+        return exampleUserNamePasswordFilter
+    }
+
+
 }
