@@ -1,5 +1,6 @@
 package com.example.mvcsecurityexample.security.filter
 
+import com.example.mvcsecurityexample.controller.response.BaseResponse
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
@@ -12,16 +13,15 @@ class ExampleSuccessHandler(
 
 ): AuthenticationSuccessHandler {
 
-    val mapper = jacksonObjectMapper()
+    private val mapper = jacksonObjectMapper()
 
     override fun onAuthenticationSuccess(request: HttpServletRequest, response: HttpServletResponse, authentication: Authentication?) {
-        val token = authentication as ExampleAuthenticationToken
+        val exampleToken = authentication as ExampleAuthenticationToken
 
         response.status = HttpStatus.OK.value()
         response.contentType = MediaType.APPLICATION_JSON_VALUE
         response.outputStream.write(
-            mapper.writeValueAsBytes()
+            mapper.writeValueAsBytes(BaseResponse.ok(exampleToken.token))
         )
-
     }
 }
