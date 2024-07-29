@@ -16,10 +16,9 @@ import org.springframework.web.HttpMediaTypeNotSupportedException
 
 
 class ExampleUserNamePasswordFilter(
-    authenticationManager: AuthenticationManager,
     private val mapper: ObjectMapper = jacksonObjectMapper()
 
-): UsernamePasswordAuthenticationFilter(authenticationManager) {
+): UsernamePasswordAuthenticationFilter() {
 
     override fun attemptAuthentication(request: HttpServletRequest?, response: HttpServletResponse?): Authentication {
         requireNotNull(request)
