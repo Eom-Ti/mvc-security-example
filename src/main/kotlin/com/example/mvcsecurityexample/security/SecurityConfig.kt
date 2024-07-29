@@ -42,11 +42,9 @@ class SecurityConfig(
     @Bean
     fun exampleUserNamePasswordFilter(): ExampleUserNamePasswordFilter {
         val exampleUserNamePasswordFilter = ExampleUserNamePasswordFilter()
-        exampleUserNamePasswordFilter.setAuthenticationSuccessHandler(ExampleSuccessHandler())
         exampleUserNamePasswordFilter.setAuthenticationManager(ProviderManager(exampleUserNamePasswordProvider()))
+        exampleUserNamePasswordFilter.setAuthenticationSuccessHandler(ExampleSuccessHandler())
 
         return exampleUserNamePasswordFilter
     }
-
-
 }
