@@ -1,6 +1,6 @@
 package com.example.mvcsecurityexample.security.filter
 
-import com.example.mvcsecurityexample.coin.ExampleToken
+import com.example.mvcsecurityexample.token.ExampleToken
 import org.springframework.security.authentication.AbstractAuthenticationToken
 
 class ExampleAuthenticationToken(

@@ -1,4 +1,4 @@
-package com.example.mvcsecurityexample.coin
+package com.example.mvcsecurityexample.token
 
 import java.util.Date
 
