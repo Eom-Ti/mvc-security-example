@@ -1,0 +1,6 @@
+jwt:
+  secret-key: secretKeysecretKeysecretKeysecretKeysecretKeysecretKeysecretKeysecretKeysecretKeysecretKey
+  access-token-expired-minute: 30
+
+server:
+  port: 8082
