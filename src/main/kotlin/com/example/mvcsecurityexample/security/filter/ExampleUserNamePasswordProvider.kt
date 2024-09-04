@@ -2,6 +2,7 @@ package com.example.mvcsecurityexample.security.filter
 
 import com.example.mvcsecurityexample.service.UserAuthenticationService
 import com.example.mvcsecurityexample.token.TokenProvider
+import org.slf4j.LoggerFactory
 import org.springframework.security.authentication.AuthenticationProvider
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.Authentication
@@ -13,12 +14,15 @@ class ExampleUserNamePasswordProvider(
 
 ): AuthenticationProvider {
 
+    private val log = LoggerFactory.getLogger(ExampleUserNamePasswordProvider::class.java)
+
     override fun authenticate(authentication: Authentication?): Authentication {
         val token = authentication as ExampleAuthenticationToken
-        val accessToken = token.token.accessToken
+        val loginData = authentication.loginData
 
-        verifyToken(accessToken)
+        log.info("[ExampleUserNamePasswordProvider.authenticate] loginData: $loginData")
 
+        if(checkPassword)
     }
 
     override fun supports(authentication: Class<*>?): Boolean {
