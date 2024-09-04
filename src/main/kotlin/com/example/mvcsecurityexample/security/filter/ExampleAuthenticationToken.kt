@@ -5,7 +5,7 @@ import org.springframework.security.authentication.AbstractAuthenticationToken
 
 class ExampleAuthenticationToken(
 
-    val token: ExampleToken
+    val loginData: LoginData
 
 ): AbstractAuthenticationToken(null) {
 
