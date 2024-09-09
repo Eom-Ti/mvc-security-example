@@ -1,6 +1,5 @@
 package com.example.mvcsecurityexample.service
 
-import com.example.mvcsecurityexample.domain.User
 import org.springframework.stereotype.Service
 
 @Service
@@ -8,7 +7,11 @@ class UserAuthenticationService(
 
 ) {
 
-    fun findByUserId(userId: String): User {
-        return User("t", 1)
+    fun isLoginInfoNotMatch(userId: String, password: String): Boolean {
+        require(userId.isBlank() || password.isBlank()) {
+            "userId or password must not be blank"
+        }
+
+        return !(userId != "owen" || password != "1234")
     }
 }
