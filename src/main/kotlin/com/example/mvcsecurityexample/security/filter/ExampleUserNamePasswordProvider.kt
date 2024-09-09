@@ -4,7 +4,6 @@ import com.example.mvcsecurityexample.service.UserAuthenticationService
 import com.example.mvcsecurityexample.token.TokenProvider
 import org.slf4j.LoggerFactory
 import org.springframework.security.authentication.AuthenticationProvider
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.Authentication
 
 class ExampleUserNamePasswordProvider(
@@ -22,7 +21,11 @@ class ExampleUserNamePasswordProvider(
 
         log.info("[ExampleUserNamePasswordProvider.authenticate] loginData: $loginData")
 
-        if(checkPassword)
+        if (userAuthenticationService.isLoginInfoNotMatch(loginData.userId, loginData.password)) {
+            throw IllegalArgumentException("[userAuthenticationService.isPasswordNotMatch]")
+        }
+
+
     }
 
     override fun supports(authentication: Class<*>?): Boolean {
