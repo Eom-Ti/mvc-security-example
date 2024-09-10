@@ -22,7 +22,7 @@ class JwtTokenProvider(
         val accessToken = Jwts.builder()
             .setIssuer(TokenConst.ISSUER)
             .setIssuedAt(Date.from(ZonedDateTime.now(ZoneOffset.UTC).toInstant()))
-            .setExpiration(jwtProperties.accessTokenExpiredDate())
+            .setExpiration(jwtProperties.getAccessTokenExpiredDate())
             .setHeader(createHeader())
             .signWith(jwtProperties.getSecretKey(), SignatureAlgorithm.HS512)
             .addClaims(payload)
