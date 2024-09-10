@@ -22,7 +22,7 @@ class JwtTokenProvider(
         val accessToken = Jwts.builder()
             .setIssuer(TokenConst.ISSUER)
             .setIssuedAt(Date.from(ZonedDateTime.now(ZoneOffset.UTC).toInstant()))
-            .setExpiration(jwtProperties.getAccessTokenExpiredDate())
+            .setExpiration(jwtProperties.accessTokenExpiredDate())
             .setHeader(createHeader())
             .signWith(jwtProperties.getSecretKey(), SignatureAlgorithm.HS512)
             .addClaims(payload)
@@ -32,7 +32,10 @@ class JwtTokenProvider(
     }
 
     override fun accessTokenVerify(accessToken: String) {
-        TODO("Not yet implemented")
+        Jwts.parserBuilder()
+            .setSigningKey(jwtProperties.getSecretKey())
+            .build()
+            .parseClaimsJws(accessToken)
     }
 
     override fun getPayload(accessToken: String): TokenPayload {
