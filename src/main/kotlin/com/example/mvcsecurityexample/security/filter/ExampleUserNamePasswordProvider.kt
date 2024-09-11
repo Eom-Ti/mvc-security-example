@@ -1,6 +1,7 @@
 package com.example.mvcsecurityexample.security.filter
 
 import com.example.mvcsecurityexample.service.UserAuthenticationService
+import com.example.mvcsecurityexample.token.TokenPayload
 import com.example.mvcsecurityexample.token.TokenProvider
 import org.slf4j.LoggerFactory
 import org.springframework.security.authentication.AuthenticationProvider
@@ -21,10 +22,9 @@ class ExampleUserNamePasswordProvider(
 
         log.info("[ExampleUserNamePasswordProvider.authenticate] loginData: $loginData")
 
-        if (userAuthenticationService.isLoginInfoNotMatch(loginData.userId, loginData.password)) {
+        if (userAuthenticationService.isLoginInfoNotMatch(loginData.password)) {
             throw IllegalArgumentException("[userAuthenticationService.isPasswordNotMatch]")
         }
-
 
     }
 

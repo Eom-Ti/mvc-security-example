@@ -7,11 +7,11 @@ class UserAuthenticationService(
 
 ) {
 
-    fun isLoginInfoNotMatch(userId: String, password: String): Boolean {
-        require(userId.isBlank() || password.isBlank()) {
-            "userId or password must not be blank"
+    fun isLoginInfoNotMatch(password: String): Boolean {
+        require(password.isBlank()) {
+            "password must not be blank"
         }
 
-        return !(userId != "owen" || password != "1234")
+        return password == "1234"
     }
 }
