@@ -1,6 +1,7 @@
 package com.example.mvcsecurityexample.token
 
 import com.fasterxml.jackson.core.type.TypeReference
+import com.fasterxml.jackson.module.kotlin.convertValue
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.SignatureAlgorithm
@@ -39,7 +40,14 @@ class JwtTokenProvider(
     }
 
     override fun getPayload(accessToken: String): TokenPayload {
-        TODO("Not yet implemented")
+        val claims = Jwts.parserBuilder()
+            .setSigningKey(jwtProperties.getSecretKey())
+            .build()
+            .parseClaimsJws(accessToken)
+            .body
+
+        val payload = claims.entries.associate { it.key to it.value }
+        return mapper.convertValue(payload, TokenPayload::class.java)
     }
 
     private fun createHeader(): Map<String, String> {
