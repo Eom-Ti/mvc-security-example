@@ -1,5 +1,6 @@
 package com.example.mvcsecurityexample.security
 
+import com.example.mvcsecurityexample.security.filter.ExampleFailHandler
 import com.example.mvcsecurityexample.security.filter.ExampleSuccessHandler
 import com.example.mvcsecurityexample.security.filter.ExampleUserNamePasswordFilter
 import com.example.mvcsecurityexample.security.filter.ExampleUserNamePasswordProvider
@@ -44,6 +45,7 @@ class SecurityConfig(
         val exampleUserNamePasswordFilter = ExampleUserNamePasswordFilter()
         exampleUserNamePasswordFilter.setAuthenticationManager(ProviderManager(exampleUserNamePasswordProvider()))
         exampleUserNamePasswordFilter.setAuthenticationSuccessHandler(ExampleSuccessHandler())
+        exampleUserNamePasswordFilter.setAuthenticationFailureHandler(ExampleFailHandler())
 
         return exampleUserNamePasswordFilter
     }
