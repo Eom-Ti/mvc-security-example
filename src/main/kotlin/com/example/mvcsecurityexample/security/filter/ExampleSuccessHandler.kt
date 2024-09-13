@@ -16,7 +16,7 @@ class ExampleSuccessHandler(
     private val mapper = jacksonObjectMapper()
 
     override fun onAuthenticationSuccess(request: HttpServletRequest, response: HttpServletResponse, authentication: Authentication?) {
-        val exampleToken = authentication as ExampleAuthenticationToken
+        val exampleToken = authentication as ExampleJwtAuthenticationToken
 
         response.status = HttpStatus.OK.value()
         response.contentType = MediaType.APPLICATION_JSON_VALUE
