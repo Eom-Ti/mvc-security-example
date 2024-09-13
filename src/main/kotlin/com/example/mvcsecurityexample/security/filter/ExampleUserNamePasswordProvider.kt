@@ -39,9 +39,4 @@ class ExampleUserNamePasswordProvider(
     override fun supports(authentication: Class<*>?): Boolean {
         return authentication?.isAssignableFrom(ExampleAuthenticationToken::class.java) ?: false
     }
-
-
-    private fun verifyToken(accessToken: String) {
-
-    }
 }
